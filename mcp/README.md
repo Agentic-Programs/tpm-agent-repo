@@ -29,9 +29,9 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp/ \
 **Auth:** GitHub Personal Access Token (fine-grained, repo:read +
 pull_requests:read scope only — see `auth/AUTH.md`).
 
-**Gotcha:** Claude Code's remote OAuth support for GitHub is limited as of
-this writing — use PAT auth, not the OAuth flow, even though the server
-supports it in other clients.
+**Gotcha:** remote OAuth support for GitHub is limited in many MCP clients
+as of this writing — use PAT auth, not the OAuth flow, even though the
+server supports it in other clients.
 
 ---
 
@@ -41,10 +41,10 @@ supports it in other clients.
 mentions, DMs, and channel threads.
 
 **Server:** community-maintained `@slack/mcp-server` npm package. (Slack's
-own first-party MCP server also exists but is aimed at Claude.ai/Desktop's
-Connectors UI, not Claude Code's stdio servers — if your workspace supports
-it, using Slack's official OAuth connector via Claude Desktop is the more
-maintained path and worth checking first.)
+own first-party MCP server also exists but is aimed at a hosted Connectors
+UI, not stdio-based MCP clients — if your setup supports it, using Slack's
+official OAuth connector is the more maintained path and worth checking
+first.)
 
 **Install:** no separate install — `npx` fetches it on first run per the
 `.mcp.json` entry above.

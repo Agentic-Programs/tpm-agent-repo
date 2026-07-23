@@ -5,9 +5,9 @@ webapp/backend/.env
 webapp/frontend/.env
 
 # Runtime outputs — personal/dated, not source
-output/*.md
-output/*.xwiki
-output/history.json
+output/**/*.md
+output/**/*.xwiki
+output/**/history.json
 !output/.gitkeep
 
 # Program/stakeholder data — personal, not source

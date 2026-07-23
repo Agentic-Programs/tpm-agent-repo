@@ -56,7 +56,7 @@ integrations below.
 No app registration needed — the `ms365` server ships with its own
 pre-registered Microsoft app. First time you use a skill that needs it:
 
-1. Claude Code will trigger a device-code login: a URL to open and a code
+1. The CLI agent will trigger a device-code login: a URL to open and a code
    to enter.
 2. Log in with your Microsoft account in the browser. On a corporate
    tenant, this is the step where an admin-consent prompt can appear —

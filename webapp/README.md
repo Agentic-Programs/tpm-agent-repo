@@ -1,9 +1,9 @@
 # TPM Agent Console — Web App
 
-This is the real, buildable version of the console prototyped in Claude.ai
-(`tpm-agent-console.jsx`). Same UX — skill cards, chat rail, run history —
-now split into an actual frontend + backend so Claude Code has something
-concrete to wire real integrations into, instead of a single-file mockup.
+This is the real, buildable version of the console — skill cards, chat
+rail, run history — split into an actual frontend + backend so there's a
+concrete app to wire real integrations into, instead of a single-file
+mockup.
 
 ## Run it
 
@@ -25,8 +25,7 @@ npm run dev             # http://localhost:5173
 
 Open http://localhost:5173. It works immediately with **zero credentials**
 — `MOCK_MODE=true` (the default in `backend/.env.example`) makes every
-skill return realistic canned data instantly, same as the Claude.ai
-prototype.
+skill return realistic canned data instantly.
 
 ## How this maps to the rest of the repo
 
@@ -38,8 +37,8 @@ prototype.
   same file `mcp/README.md` documents) and can call real MCP tools once
   you flip `MOCK_MODE=false`. Each skill module has a `runReal()` stub
   with a TODO showing roughly which tool calls go where — that's
-  intentionally unfinished; filling it in per skill is the actual Claude
-  Code work.
+  intentionally unfinished; filling it in per skill is the actual
+  integration work.
 - `webapp/backend/src/outputWriter.js` — writes to the same top-level
   `output/` directory the CLI-only workflow uses, in the same dated
   filename format. The web app and a future CLI can share one output
@@ -48,7 +47,7 @@ prototype.
   for SQLite if it needs to survive across machines or get queried, but a
   JSON file is genuinely fine for single-user local use.
 
-## Suggested build order in Claude Code
+## Suggested build order
 
 1. Get one skill's `runReal()` working end to end (Daily Focus Digest has
    the smallest tool surface — Slack + Microsoft 365 only).

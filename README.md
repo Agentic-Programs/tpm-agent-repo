@@ -4,14 +4,31 @@ A personal automation layer for the repeatable parts of the TPM role — Observe
 (gather) and Manage (synthesize) — so more of the week is left for React
 (the parts that actually need a human: escalation, negotiation, decisions).
 
-This repo is the Claude Code port of the console prototyped in Claude.ai.
-The prototype proved the UX and the output contract. This repo has two
-things built on top of that: a real web app (`webapp/`) with the same
-console UI wired to a real backend, and the skill/agent layer
-(`skills/`, `agents/`, `mcp/`) that both the web app and a future CLI
-share. Seven MCP servers are configured — GitHub, Slack, Microsoft 365
-(Outlook/Calendar/SharePoint/cloud Excel), Atlassian (Jira/Confluence),
-local Excel, local Word, and a persistent memory store.
+This repo has two things in it: a real web app (`webapp/`) — a console UI
+wired to a real backend — and the skill/agent layer (`skills/`, `agents/`,
+`mcp/`) that both the web app and a future CLI share. Seven MCP servers
+are configured — GitHub, Slack, Microsoft 365 (Outlook/Calendar/SharePoint
+/cloud Excel), Atlassian (Jira/Confluence), local Excel, local Word, and a
+persistent memory store.
+
+## Screenshots
+
+The web app running locally in mock mode — zero credentials required.
+
+**Dashboard** — skill cards grouped by Observe / Manage / React, program
+switcher, and the personal-agent chat rail with suggested prompts.
+
+![Dashboard](webapp/screenshots/dashboard.png)
+
+**Chat-triggered skill run** — typing (or clicking) a suggestion routes
+to the matching skill and renders its output inline as a card.
+
+![Chat-triggered skill run](webapp/screenshots/chat-response.png)
+
+**Daily Focus Digest output** — a skill run from its card, showing the
+needs-response / prep-needed breakdown with source attribution.
+
+![Daily Focus Digest output](webapp/screenshots/skill-run.png)
 
 ## Programs
 
@@ -19,7 +36,7 @@ Everything — skills, run history, stakeholders — is scoped under a
 **Program**: a TPM works several programs at once, and switching the
 active program switches the whole context underneath it, not just a
 filter on top of shared data. The web app has a program switcher in the
-header; conversationally in Claude Code, say which program you mean if
+header; in the conversational/CLI path, say which program you mean if
 it's ambiguous.
 
 Two skills are program-specific in a different way than the original
@@ -36,7 +53,7 @@ the other skills read from:
 The web app's Stakeholders tab is the reference implementation for both
 (`webapp/backend/src/programs.js` and `src/skills/communicationStrategy.js`)
 — the two `SKILL.md` files below describe the same behavior for the
-Claude Code / conversational path.
+conversational/CLI path.
 
 ## ⚠️ Before you connect real auth
 
@@ -60,7 +77,7 @@ Before pointing any MCP server at real company data:
 ```
 tpm-agent/
 ├── webapp/
-│   ├── frontend/                ← React console UI (same design as the Claude.ai prototype)
+│   ├── frontend/                ← React console UI
 │   │   └── src/components/      ← includes ProgramSwitcher.jsx, StakeholdersPanel.jsx
 │   ├── backend/
 │   │   ├── data/                ← programs.json: programs + stakeholders (gitignored)
@@ -77,7 +94,7 @@ tpm-agent/
 │   ├── stakeholder-mapping/SKILL.md      ← persistent record, not a dated digest
 │   └── communication-strategy/SKILL.md   ← reads stakeholder-mapping, offers outreach actions
 ├── mcp/
-│   ├── .mcp.json                ← 7 MCP server registrations (Claude Code reads this)
+│   ├── .mcp.json                ← 7 MCP server registrations (the CLI agent reads this)
 │   └── README.md                ← what each server does, how to install/auth it
 ├── auth/
 │   ├── .env.example             ← template, no real secrets
@@ -93,10 +110,10 @@ tpm-agent/
 
 Two entry points, same underlying skills:
 
-**Via Claude Code (conversational):**
-1. You ask in plain language ("prep me for my 1:1 with Alex") or run
-   `claude` and reference the skill directly.
-2. Claude Code reads the matching `skills/*/SKILL.md` for when-to-use,
+**Via the CLI agent (conversational):**
+1. You ask in plain language ("prep me for my 1:1 with Alex") or invoke
+   the skill directly.
+2. The agent reads the matching `skills/*/SKILL.md` for when-to-use,
    inputs, and output contract.
 3. It calls the MCP tools listed in that skill's Context section.
 4. It writes a dated file to `output/<skill-id>-YYYYMMDD.md`.
@@ -125,9 +142,9 @@ Either way: **nothing gets posted/sent anywhere without you confirming**
    filled in.
 4. Read `auth/AUTH.md` for how to get each credential and what scope to
    request.
-5. From this directory, run `claude` and try: `what do I have to do today?`
-   — or flip `MOCK_MODE=false` in `webapp/backend/.env` once you've ported
-   a skill's `runReal()`.
+5. From this directory, run your CLI agent and try: `what do I have to do
+   today?` — or flip `MOCK_MODE=false` in `webapp/backend/.env` once
+   you've ported a skill's `runReal()`.
 6. Start with **one** skill end-to-end (Daily Focus Digest is the smallest
    surface area) before wiring up the rest.
 

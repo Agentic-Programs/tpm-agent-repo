@@ -21,7 +21,7 @@ scope: per-program
 - Reference implementation: the web app's Stakeholders tab
   (`webapp/backend/src/programs.js` + `webapp/frontend/src/components/StakeholdersPanel.jsx`)
   already implements this as a full CRUD store scoped per program. This
-  SKILL.md documents the same behavior for the Claude Code / conversational
+  SKILL.md documents the same behavior for the conversational/CLI
   path, so both surfaces stay consistent.
 
 ## Context

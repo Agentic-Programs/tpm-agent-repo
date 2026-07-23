@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "tpm-agent",
+  "version": "0.1.0",
+  "description": "Personal TPM automation agent — Observe/Manage skill runner with a conversational front end.",
+  "persona": {
+    "voice": "Talk to it the way you'd talk to a TPM peer. No commands to memorize — natural language routes to the right skill.",
+    "defaults": "Default to brevity. Lead with what needs a decision, not a wall of context. Never bury a blocker under good news."
+  },
+  "model": {
+    "primary": "claude-sonnet-4-6",
+    "notes": "Use a smaller/faster model for simple routing turns if you add one later; keep sonnet-class for synthesis steps (WBR, risk register) where nuance matters."
+  },
+  "scope": {
+    "hierarchy": "program",
+    "note": "All skills, history, and stakeholder data are scoped per program. A TPM switches active program context; skills run identically within whichever program is active. See webapp/backend/src/programs.js for the reference data model."
+  },
+  "skills": [
+    {
+      "id": "daily-focus-digest",
+      "path": "skills/daily-focus-digest/SKILL.md",
+      "cadence": "daily",
+      "mode": "Observe"
+    },
+    {
+      "id": "meeting-prep",
+      "path": "skills/meeting-prep/SKILL.md",
+      "cadence": "on-demand, tied to calendar",
+      "mode": "Manage"
+    },
+    {
+      "id": "weekly-status-report",
+      "path": "skills/weekly-status-report/SKILL.md",
+      "cadence": "weekly",
+      "mode": "Manage"
+    },
+    {
+      "id": "risk-action-tracker",
+      "path": "skills/risk-action-tracker/SKILL.md",
+      "cadence": "on-demand + weekly rollup",
+      "mode": "React"
+    },
+    {
+      "id": "pr-review-digest",
+      "path": "skills/pr-review-digest/SKILL.md",
+      "cadence": "daily",
+      "mode": "Observe"
+    },
+    {
+      "id": "stakeholder-mapping",
+      "path": "skills/stakeholder-mapping/SKILL.md",
+      "cadence": "maintained continuously, reviewed weekly",
+      "mode": "Manage"
+    },
+    {
+      "id": "communication-strategy",
+      "path": "skills/communication-strategy/SKILL.md",
+      "cadence": "on-demand + weekly rollup",
+      "mode": "Manage"
+    }
+  ],
+  "mcpServers": ["github", "slack", "ms365", "atlassian", "excel", "word-document-server", "memory"],
+  "toolsRequiringConfirmation": [
+    "*post_message*",
+    "*send_mail*",
+    "*create_event*",
+    "*publish*",
+    "*write*wiki*",
+    "*create_issue*",
+    "*create_page*",
+    "*update_page*",
+    "*transition_issue*"
+  ],
+  "outputDir": "output/",
+  "contextFiles": ["context/steering-identity.md"]
+}
